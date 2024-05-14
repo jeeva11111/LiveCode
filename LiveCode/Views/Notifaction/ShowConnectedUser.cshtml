@@ -1,0 +1,11 @@
+﻿@model LiveCode.Hubs.ConnectedUsers
+
+<div class="col-2">
+    <h2>Online Connected Users</h2>
+    <ul id="userList">
+        @foreach (var item in LiveCode.Hubs.ConnectedUsers.UsersList)
+        {
+            <li>@item</li>
+        }
+    </ul>
+</div>

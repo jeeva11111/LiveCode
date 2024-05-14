@@ -1,4 +1,5 @@
 ﻿using LiveCode.Models;
+using LiveCode.Models.DapperModels;
 using LiveCode.Models.FormUploads;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,8 @@ namespace LiveCode.Data
 		public DbSet<City> City { get; set; }
 		public DbSet<FormList> formLists { get; set; }
 		public DbSet<UserModel> UserModels { get; set; }
+        public DbSet<Company>  Companies { get; set; }
+        public DbSet<Employee>  Employees { get; set; }
 
-	}
+    }
 }

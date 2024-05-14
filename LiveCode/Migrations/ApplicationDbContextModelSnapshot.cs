@@ -59,6 +59,46 @@ namespace LiveCode.Migrations
                     b.ToTable("Country");
                 });
 
+            modelBuilder.Entity("LiveCode.Models.DapperModels.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("LiveCode.Models.DapperModels.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("LiveCode.Models.FormList", b =>
                 {
                     b.Property<int>("Id")
@@ -179,6 +219,17 @@ namespace LiveCode.Migrations
                     b.Navigation("State");
                 });
 
+            modelBuilder.Entity("LiveCode.Models.DapperModels.Employee", b =>
+                {
+                    b.HasOne("LiveCode.Models.DapperModels.Company", "Company")
+                        .WithMany("Employees")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("LiveCode.Models.FormList", b =>
                 {
                     b.HasOne("LiveCode.Models.City", "City")
@@ -220,6 +271,11 @@ namespace LiveCode.Migrations
             modelBuilder.Entity("LiveCode.Models.Country", b =>
                 {
                     b.Navigation("States");
+                });
+
+            modelBuilder.Entity("LiveCode.Models.DapperModels.Company", b =>
+                {
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("LiveCode.Models.State", b =>
